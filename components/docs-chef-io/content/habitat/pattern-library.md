@@ -10,7 +10,7 @@ description = "Example code for Chef Habitat plans and more!"
 
 +++
 
-## <a name="hab-patterns" id="hab-patterns" type="anchor">Chef Habitat Pattern Library</a>
+## Chef Habitat Pattern Library
 
 The Chef Habitat Pattern Library is an evolving set of design patterns to use as starting-points. These patterns are examples and require configuration and customization for your unique situation.
 
@@ -20,7 +20,6 @@ For help with Chef Habitat and these patterns, ask:
 - In the [Chef Habitat Forum](https://forums.habitat.sh/)
 - In the [Chef Habitat Slack](http://slack.habitat.sh/)
 
-+++
 ## Kubernetes Bastion Ring Pattern
 
 A _bastion ring_ is a robust type of Supervisor network in which a small number of Supervisors are set up as permanent peers and that are dedicated to anchoring Supervisor network communication. These Supervisors are designated solely for communication between Supervisor and _do not run services_. These solely to anchor the entire Supervisor network. See [Robust Supervisor Networks](/docs/best-practices/#robust-supervisor-networks/) for more information. The following examples demonstrate running a bastion ring in Kubernetes.
@@ -46,10 +45,7 @@ do_install() {
 
 ```
 
-+++
-
 ### Kubernetes Bastion Ring Producer Pattern
-
 
 ```yaml
   +++
@@ -135,8 +131,6 @@ spec:
 
 ### Kubernetes Bastion Ring Consumer Pattern
 
-<%# NEED EXPLANATION %>
-
 ```yaml
 
   apiVersion: apps/v1
@@ -216,29 +210,23 @@ core/hab-sup
 
 Each line is a valid package identifier. You can also add comments using `#`.
 
-To download these packages (and their dependencies), save that to a
-file named `supervisor.txt` and run:
+To download these packages (and their dependencies), save that to a file named `supervisor.txt` and run:
 
-```
+```bash
 hab pkg download --file=supervisor.txt
 ```
 
-This will download the packages into your existing Habitat cache
-directory. Alternatively, you can specify a directory using the
-`--download-directory` option.
+This will download the packages into your existing Habitat cache directory.
+Alternatively, you can specify a directory using the `--download-directory` option.
 
-(You can also specify `--channel` and `--target` to further control
-which specific packages you download; run `hab pkg download --help`
-for more).
+(You can also specify `--channel` and `--target` to further control which specific packages you download; run `hab pkg download --help` for more).
 
 ### TOML Download Descriptors
 
-Plain text is fine for simple cases, but has drawbacks. For instance,
-all packages will come from the same channel and will be for the same
-platform target. For maximum flexibility, you'll want to use TOML to
-write your download descriptor. Here is an example of one that the
-Habitat core team uses to take periodic snapshots of everything needed
-to run Builder itself:
+Plain text is fine for simple cases, but has drawbacks.
+For instance, all packages will come from the same channel and will be for the same platform target.
+For maximum flexibility, you'll want to use TOML to
+write your download descriptor. Here is an example of one that the Habitat core team uses to take periodic snapshots of everything needed to run Builder itself:
 
 ```toml
 format_version = 1
@@ -293,11 +281,8 @@ packages = [
 ]
 ```
 
-This format allows us to specify multiple subsets of packages from
-different channels and for different architectures. Here, we are
-pulling down all the core service packages, which run on Linux, but
-are also pulling down the platform-specific versions of the
-`habitat/builder-worker` package. Without this format, we would have
-to invoke `hab pkg download` multiple times with different
-parameters. The file allows us to capture our full intention in one
-place.
+This format allows us to specify multiple subsets of packages from different channels and for different architectures.
+Here, we are pulling down all the core service packages, which run on Linux, but are also pulling down the platform-specific versions of the
+`habitat/builder-worker` package.
+Without this format, we would have to invoke `hab pkg download` multiple times with different parameters.
+The file allows us to capture our full intention in one place.
